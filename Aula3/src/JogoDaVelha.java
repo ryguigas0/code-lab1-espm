@@ -34,8 +34,7 @@ public class JogoDaVelha {
 
             atualizarTabuleiro(tabuleiro, x, y, icone);
 
-
-            if (alguemVenceu(tabuleiro)) {
+            if (jogadorVenceu(tabuleiro, icone)) {
                 printarTabuleiro(tabuleiro);
                 empatou = false;
                 break;
@@ -54,38 +53,39 @@ public class JogoDaVelha {
         return (x > 0 && x <= 3) && (y > 0 && y <= 3) && tabuleiro[y - 1][x - 1] == ' ';
     }
 
-    private static boolean alguemVenceu(char[][] tabuleiro) {
-        boolean venceu = false;
+    private static boolean jogadorVenceu(char[][] tabuleiro, char icone) {
+        return checarLinhas(tabuleiro, icone) || checarColunas(tabuleiro, icone) || checarDiagonais(tabuleiro, icone);
+    }
 
+    private static boolean checarLinhas(char[][] tabuleiro, char icone) {
         for (int i = 0; i < tabuleiro.length; i++) {
-            venceu = tabuleiro[i][0] == tabuleiro[i][1] && tabuleiro[i][1] == tabuleiro[i][2] && tabuleiro[i][0] != ' ';
+            if (tabuleiro[i][0] == tabuleiro[i][1] && tabuleiro[i][1] == tabuleiro[i][2] && tabuleiro[i][2] == icone) {
+                return true;
+            }
         }
+        return false;
+    }
 
-        if (venceu) {
-            return venceu;
-        }
-
+    private static boolean checarColunas(char[][] tabuleiro, char icone) {
         for (int i = 0; i < tabuleiro.length; i++) {
-            venceu = tabuleiro[0][i] == tabuleiro[1][i] && tabuleiro[1][i] == tabuleiro[2][i] && tabuleiro[0][i] != ' ';
+            if (tabuleiro[0][i] == tabuleiro[1][i] && tabuleiro[1][i] == tabuleiro[2][i] && tabuleiro[2][i] == icone) {
+                return true;
+            }
         }
+        return false;
+    }
 
-        if (venceu) {
-            return venceu;
-        }
+    private static boolean checarDiagonais(char[][] tabuleiro, char icone) {
+        return checarDiagonalPrincipal(tabuleiro, icone) || checarDiagonalSecundaria(tabuleiro, icone);
+    }
 
-        venceu = tabuleiro[0][0] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][2] && tabuleiro[0][0] != ' ';
+    private static boolean checarDiagonalSecundaria(char[][] tabuleiro, char icone) {
+        return tabuleiro[0][2] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][0]
+                && tabuleiro[2][0] == icone;
+    }
 
-        if (venceu) {
-            return venceu;
-        }
-
-        venceu = tabuleiro[0][2] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][0] && tabuleiro[0][2] != ' ';
-
-        if (venceu) {
-            return venceu;
-        }
-
-        return venceu;
+    private static boolean checarDiagonalPrincipal(char[][] tabuleiro, char icone) {
+        return tabuleiro[0][0] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][2] && tabuleiro[2][2] == icone;
     }
 
     private static int jogadorAtual(int turno) {
