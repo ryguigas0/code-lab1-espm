@@ -14,7 +14,7 @@ public class Exercicio4 {
         kb.nextLine();
 
         String[] nomesVendedores = new String[quantVendedores];
-        int[][] vendas = new int[quantVendedores][7];
+        double[][] vendas = new double[quantVendedores][7];
 
         for (int i = 0; i < nomesVendedores.length; i++) {
             System.out.print("Digite o nome do(a) vendedor(a) " + (i + 1) + ": ");
@@ -41,11 +41,12 @@ public class Exercicio4 {
         }
         System.out.println("Soma");
 
-        int maiorSoma = 0, menorSoma = -1;
+        double maiorSoma = 0;
+        double menorSoma = -1;
         int vendedorMaior = 0, vendedorMenor = 0;
 
         for (int i = 0; i < vendas.length; i++) {
-            int soma = vendas[i][6];
+            double soma = vendas[i][6];
 
             if (soma > maiorSoma) {
                 maiorSoma = soma;
@@ -57,7 +58,7 @@ public class Exercicio4 {
                 vendedorMenor = i;
             }
 
-            printarLinhaRelatorio(nomesVendedores[i], vendas[i], soma);
+            printarLinhaRelatorio(nomesVendedores[i], vendas[i]);
         }
 
         System.out.println("Vendedor com mais vendas: " + nomesVendedores[vendedorMaior] + " (" + maiorSoma + ")");
@@ -65,11 +66,13 @@ public class Exercicio4 {
 
     }
 
-    private static void printarLinhaRelatorio(String nomeVendedor, int[] vendas, int soma) {
-        String saida = String.format("%s | %d | %d | %d | %d | %d | %d | %d",
-                nomeVendedor, vendas[0], vendas[1], vendas[2], vendas[3], vendas[4], vendas[5], soma);
+    private static void printarLinhaRelatorio(String nomeVendedor, double[] vendas) {
+        System.out.print(nomeVendedor);
 
-        System.out.println(saida);
+        for (int i = 0; i < vendas.length; i++) {
+            System.out.print(" | " + vendas[i]);
+        }
+        System.out.println();
     }
 
 }
