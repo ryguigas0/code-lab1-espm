@@ -3,10 +3,9 @@ import java.util.Scanner;
 public class Exercicio4 {
 
     static Scanner kb = new Scanner(System.in);
+    static String[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho" };
 
     public static void main(String[] args) {
-
-        String[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho" };
 
         System.out.print("Quantos vendedores são? ");
         int quantVendedores = kb.nextInt();
@@ -60,10 +59,23 @@ public class Exercicio4 {
 
             printarLinhaRelatorio(nomesVendedores[i], vendas[i]);
         }
+        printarSomaPorMes(vendas);
 
         System.out.println("Vendedor com mais vendas: " + nomesVendedores[vendedorMaior] + " (" + maiorSoma + ")");
         System.out.println("Vendedor com menos vendas: " + nomesVendedores[vendedorMenor] + " (" + menorSoma + ")");
 
+    }
+
+    private static void printarSomaPorMes(double[][] vendas) {
+        double total = 0;
+        for (int i = 0; i < meses.length; i++) {
+            for (int j = 0; j < vendas.length; j++) {
+                total += vendas[j][i];
+            }
+            System.out.print(" | " + total);
+            total = 0;
+        }
+        System.out.println();
     }
 
     private static void printarLinhaRelatorio(String nomeVendedor, double[] vendas) {
