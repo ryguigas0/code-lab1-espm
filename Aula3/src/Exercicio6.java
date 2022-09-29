@@ -4,31 +4,32 @@ public class Exercicio6 {
     public static void main(String[] args) {
         int a = 3, b = 3, c = 2;
 
+        System.out.println("A matriz ");
         int[][] matx = gerarMatriz(a, b);
         printarMatriz(matx);
 
         System.out.println("Multiplicado por");
-
         int[][] maty = gerarMatriz(b, c);
         printarMatriz(maty);
 
         System.out.println("Resulta em");
-
         int[][] matResultado = multiplicarMatrizes(matx, maty);
         printarMatriz(matResultado);
     }
 
     private static int[][] multiplicarMatrizes(int[][] matx, int[][] maty) {
 
-        int lenLinMatx = matx.length, lenColMaty = maty[0].length;
+        int linMatx = matx.length, colMaty = maty[0].length;
 
-        int[][] matResultado = new int[lenLinMatx][lenColMaty];
+        int[][] matResultado = new int[linMatx][colMaty];
 
-        for (int i = 0; i < matResultado.length; i++) {
-            for (int j = 0; j < matResultado[i].length; j++) {
-                int[] linhaMatx = matx[i];
-                int[] colMaty = pegarColunaMatriz(maty, j);
-                matResultado[i][j] = somarLinhaColunaMatriz(linhaMatx, colMaty);
+        for (int i = 0; i < linMatx; i++) {
+            for (int j = 0; j < colMaty; j++) {
+                int[] linhax = matx[i];
+                int[] colunay = pegarColunaMatriz(maty, j);
+                int elemento = somarLinhaColunaMatriz(linhax, colunay);
+
+                matResultado[i][j] = elemento;
             }
         }
 
@@ -39,18 +40,20 @@ public class Exercicio6 {
         int soma = 0;
 
         for (int i = 0; i < coluna.length; i++) {
-            soma += linha[i] + coluna[i];
+            soma += linha[i] * coluna[i];
         }
 
         return soma;
     }
 
-    private static int[] pegarColunaMatriz(int[][] maty, int posColuna) {
-        int lenLinha = maty[0].length;
-        int[] coluna = new int[lenLinha];
-        for (int i = 0; i < lenLinha; i++) {
-            coluna[i] = maty[posColuna][i];
+    private static int[] pegarColunaMatriz(int[][] matriz, int posColuna) {
+        int tamanhoColuna = matriz.length;
+        int[] coluna = new int[tamanhoColuna];
+
+        for (int i = 0; i < coluna.length; i++) {
+            coluna[i] = matriz[i][posColuna];
         }
+
         return coluna;
     }
 
@@ -68,7 +71,7 @@ public class Exercicio6 {
 
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
-                matriz[i][j] = gerarNumero(10);
+                matriz[i][j] = gerarNumero(5);
             }
         }
 
