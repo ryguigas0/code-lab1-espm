@@ -40,8 +40,8 @@ public class Exercicio4 {
         }
         System.out.println("Soma");
 
-        double maiorSoma = Integer.MIN_VALUE;
-        double menorSoma = Integer.MAX_VALUE;
+        double maiorSoma = Double.MIN_VALUE;
+        double menorSoma = Double.MAX_VALUE;
         int vendedorMaior = 0, vendedorMenor = 0;
 
         for (int i = 0; i < vendas.length; i++) {
