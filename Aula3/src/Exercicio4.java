@@ -5,18 +5,16 @@ public class Exercicio4 {
     static Scanner kb = new Scanner(System.in);
 
     public static void main(String[] args) {
-        // 5 vendedores OK
-        // com 1 nome cada OK
-        // com 6 (1 semestre) vendas cada OK
 
-        // imprimir
-        // - A soma total de vendas
-        // - Cada venda por mês
-        // - Nome do vendedor com mais vendas
-        // - Nome do vendedor com menos vendas
+        String[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho" };
 
-        String[] nomesVendedores = new String[5];
-        int[][] vendas = new int[5][6];
+        System.out.print("Quantos vendedores são? ");
+        int quantVendedores = kb.nextInt();
+
+        kb.nextLine();
+
+        String[] nomesVendedores = new String[quantVendedores];
+        int[][] vendas = new int[quantVendedores][7];
 
         for (int i = 0; i < nomesVendedores.length; i++) {
             System.out.print("Digite o nome do(a) vendedor(a) " + (i + 1) + ": ");
@@ -25,10 +23,11 @@ public class Exercicio4 {
 
         for (int i = 0; i < nomesVendedores.length; i++) {
             System.out.println("Para o vendedor(a) " + nomesVendedores[i]);
-            for (int iVenda = 0; iVenda < vendas[i].length; iVenda++) {
+            for (int venda = 0; venda < meses.length; venda++) {
                 System.out
-                        .print("Digite o valor total das vendas do mês " + (iVenda + 1) + " do primeiro semestre: ");
-                vendas[i][iVenda] = kb.nextInt();
+                        .print("Digite o valor total das vendas de " + meses[venda] + ": ");
+                vendas[i][venda] = kb.nextInt();
+                vendas[i][6] += vendas[i][venda];
             }
         }
 
@@ -36,16 +35,17 @@ public class Exercicio4 {
         System.out.println(" Relatório final");
         System.out.println("-----------------");
 
+        System.out.print("Vendedor | ");
+        for (int i = 0; i < meses.length; i++) {
+            System.out.print(meses[i] + " | ");
+        }
+        System.out.println("Soma");
+
         int maiorSoma = 0, menorSoma = -1;
         int vendedorMaior = 0, vendedorMenor = 0;
 
-        System.out.println("Vendedor | Mês 1 | Mês 2 | Mês 3 | Mês 4 | Mês 5 | Mês 6 | Soma");
         for (int i = 0; i < vendas.length; i++) {
-            int soma = 0;
-
-            for (int j = 0; j < vendas.length; j++) {
-                soma += vendas[i][j];
-            }
+            int soma = vendas[i][6];
 
             if (soma > maiorSoma) {
                 maiorSoma = soma;
