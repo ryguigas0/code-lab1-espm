@@ -1,21 +1,40 @@
 package codelab.aula3;
+
 import java.util.Random;
+import java.util.Scanner;
 
 public class Exercicio6 {
+
+    static Scanner kb = new Scanner(System.in);
+
     public static void main(String[] args) {
-        int a = 3, b = 3, c = 2;
+        int linhaA = pegarInput("Total de linhas da matriz A: ");
+        int colunaA = pegarInput("Total de colunas da matriz A: ");
+
+        int linhaB = colunaA;
+        int colunaB = pegarInput("Total de colunas da matriz B: ");
 
         System.out.println("A matriz ");
-        int[][] matx = gerarMatriz(a, b);
+        int[][] matx = gerarMatriz(linhaA, colunaA);
         printarMatriz(matx);
 
         System.out.println("Multiplicado por");
-        int[][] maty = gerarMatriz(b, c);
+        int[][] maty = gerarMatriz(linhaB, colunaB);
         printarMatriz(maty);
 
         System.out.println("Resulta em");
         int[][] matResultado = multiplicarMatrizes(matx, maty);
         printarMatriz(matResultado);
+    }
+
+    private static int pegarInput(String label) {
+        int input = -1;
+        do {
+            System.out.print(label);
+            input = kb.nextInt();
+        } while (input <= 0);
+
+        return input;
     }
 
     private static int[][] multiplicarMatrizes(int[][] matx, int[][] maty) {
@@ -28,9 +47,7 @@ public class Exercicio6 {
             for (int j = 0; j < colMaty; j++) {
                 int[] linhax = matx[i];
                 int[] colunay = pegarColunaMatriz(maty, j);
-                int elemento = somarLinhaColunaMatriz(linhax, colunay);
-
-                matResultado[i][j] = elemento;
+                matResultado[i][j] = somarLinhaColunaMatriz(linhax, colunay);
             }
         }
 
@@ -58,7 +75,7 @@ public class Exercicio6 {
         return coluna;
     }
 
-    static void printarMatriz(int[][] matriz) {
+    private static void printarMatriz(int[][] matriz) {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 System.out.print(matriz[i][j] + "\t");
@@ -72,7 +89,7 @@ public class Exercicio6 {
 
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
-                matriz[i][j] = gerarNumero(5);
+                matriz[i][j] = gerarNumero(6);
             }
         }
 
