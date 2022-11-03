@@ -1,4 +1,4 @@
-# Aula 3
+# Aula 3: Matrizes
 
 ## Matrizes: um vetor de vetores, um vetor bidimencional se me permite dizer
 

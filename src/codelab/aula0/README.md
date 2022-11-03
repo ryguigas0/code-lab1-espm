@@ -1,4 +1,4 @@
-# Aula 0
+# Aula 0: Arrays, aleatoriedade e métodos
 
 ## Arrays: guardando mais valores em uma variável
 

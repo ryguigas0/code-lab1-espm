@@ -1,4 +1,4 @@
-# Aula 2
+# Aula 2: Strings
 
 ## Strings: guardando texto em uma variável
 
