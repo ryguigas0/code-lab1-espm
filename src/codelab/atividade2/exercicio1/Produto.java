@@ -1,4 +1,4 @@
-package codelab.atividade2.gerenciador;
+package codelab.atividade2.exercicio1;
 
 public class Produto {
     String nome;
