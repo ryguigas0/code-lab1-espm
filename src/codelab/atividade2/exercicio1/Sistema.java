@@ -50,6 +50,7 @@ public class Sistema {
         } else {
             for (int i = 0; i < produtos.length; i++) {
                 if (produtos[i] != null && produtos[i].nome.equals(produto.nome)) {
+                    System.out.println("PRODUTO '" + produtos[i].nome + "' FOI DELETADO");
                     produtos[i] = null;
                     break;
                 }
@@ -64,7 +65,7 @@ public class Sistema {
         Produto produtoEncontrado = buscaProduto(produtos, nomeBuscado);
 
         if (produtoEncontrado == null) {
-            System.out.println("PRODUTO " + nomeBuscado + " NÃO ENCONTRADO!");
+            System.out.println("PRODUTO '" + nomeBuscado + "' NÃO ENCONTRADO!");
         } else {
             produtoEncontrado.printarProduto();
         }
