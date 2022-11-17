@@ -17,6 +17,6 @@ public class Professor {
     }
 
     public String professorString() {
-        return String.format("Nome: %s\nCPF: %s\nSalário mensal:%.2f\n", nome, cpf, salarioMensal());
+        return String.format("Nome: %s\nCPF: %s\nSalário mensal: R$%.2f\n", nome, cpf, salarioMensal());
     }
 }
