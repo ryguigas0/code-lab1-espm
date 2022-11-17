@@ -31,7 +31,7 @@ public class Sistema {
 
     void listarProdutos() {
         System.out.println("------------ LISTAGEM DE PRODUTOS ------------");
-        for (int i = 0; i < this.produtos.length; i++) {
+        for (int i = 0; i < produtos.length; i++) {
             if (produtos[i] != null) {
                 System.out.println("---> Produto " + (i + 1));
                 produtos[i].printarProduto();
