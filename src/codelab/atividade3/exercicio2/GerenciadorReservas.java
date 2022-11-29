@@ -7,7 +7,7 @@ import codelab.atividade3.exercicio1.Reserva;
 public class GerenciadorReservas {
     static String inputString = "Restaurante SABOR SOFISTICADO\n1.Reservar mesa\n2.Pesquisar mesa\n3.Imprimir reservas\n4.Imprimir lista de espera\n5.Cancelar reserva\n6.Finalizar";
 
-    Reserva[] reservas = new Reserva[1];
+    Reserva[] reservas = new Reserva[2];
     Reserva[] listaEspera = new Reserva[0];
 
     public void iniciar() {
@@ -28,7 +28,7 @@ public class GerenciadorReservas {
                     imprimirListaEspera();
                     break;
                 case 5:
-                    System.out.println("OPÇÃO 5");
+                    cancelarReserva();
                     break;
                 case 6:
                     rodar = false;
@@ -39,6 +39,57 @@ public class GerenciadorReservas {
                     break;
             }
         } while (rodar);
+    }
+
+    private void cancelarReserva() {
+        String telBusca = showInputDialog(null, "Digite o telefone para busca");
+
+        int reservaInd = buscarReserva(telBusca);
+        if (reservaInd > -1) {
+            deletarPosicaoReserva(reservaInd);
+            showMessageDialog(null, "Reserva deletada!");
+            return;
+        }
+
+        int listaEsperaInd = buscarListaEspera(telBusca);
+        if (listaEsperaInd > -1) {
+            deletarPosicaoListaEspera(listaEsperaInd);
+            showMessageDialog(null, "Reserva deletada da lista de espera!");
+            return;
+        }
+
+        showMessageDialog(null, "Reserva não encontrada!");
+    }
+
+    private void deletarPosicaoReserva(int reservaInd) {
+        reservas[reservaInd] = listaEspera[0];
+
+        deletarPosicaoListaEspera(0);
+    }
+
+    private void deletarPosicaoListaEspera(int listaEsperaInd) {
+        listaEspera[listaEsperaInd] = null;
+        Reserva[] novaListaEspera = new Reserva[listaEspera.length - 1];
+
+        organizarListaEspera();
+
+        for (int i = 0; i < novaListaEspera.length; i++) {
+            novaListaEspera[i] = listaEspera[i];
+        }
+
+        listaEspera = novaListaEspera;
+    }
+
+    private void organizarListaEspera() {
+        for (int i = 1; i < listaEspera.length; i++) {
+            for (int j = 0; j < listaEspera.length; j++) {
+                if (listaEspera[j] == null) {
+                    Reserva aux = listaEspera[j];
+                    listaEspera[j] = listaEspera[i];
+                    listaEspera[i] = aux;
+                }
+            }
+        }
     }
 
     private void imprimirListaEspera() {
@@ -62,8 +113,20 @@ public class GerenciadorReservas {
     }
 
     private void criarReserva() {
-        String nomeCliente = showInputDialog(null, "Digite o nome do cliente");
         String telefoneCliente = showInputDialog(null, "Digite o telefone do cliente");
+
+        int buscaTelefone = buscarReserva(telefoneCliente);
+        if (buscaTelefone == -1) {
+            showMessageDialog(null, "Já tem reserva!");
+            return;
+        }
+        buscaTelefone = buscarListaEspera(telefoneCliente);
+        if (buscaTelefone == -1) {
+            showMessageDialog(null, "Está na lista de espera!");
+            return;
+        }
+
+        String nomeCliente = showInputDialog(null, "Digite o nome do cliente");
         String formaPagamento = showInputDialog(null, "Digite a forma de pagamento (vista ou parcelado)");
         Reserva r = Reserva.criarReserva(nomeCliente, telefoneCliente, formaPagamento);
 
@@ -94,8 +157,8 @@ public class GerenciadorReservas {
     private void pesquisarReserva() {
         String telefoneBusca = showInputDialog(null, "Digite o telefone para buscar");
 
-        Reserva r = buscarReserva(telefoneBusca);
-        if (r != null) {
+        int indReserva = buscarReserva(telefoneBusca);
+        if (indReserva > -1) {
             showMessageDialog(null, "Reserva para o jantar encontrada!");
             return;
         }
@@ -118,12 +181,12 @@ public class GerenciadorReservas {
         return -1;
     }
 
-    private Reserva buscarReserva(String telefoneBusca) {
+    private int buscarReserva(String telefoneBusca) {
         for (int i = 0; i < reservas.length; i++) {
             if (reservas[i].telCliente.equals(telefoneBusca)) {
-                return reservas[i];
+                return i;
             }
         }
-        return null;
+        return -1;
     }
 }
